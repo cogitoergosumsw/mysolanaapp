@@ -17,3 +17,7 @@ default = []
 
 [dependencies]
 anchor-lang = "0.23.0"
+
+[provider]
+cluster = "localnet"
+wallet = "/Users/sengwee/.config/solana/id.json"

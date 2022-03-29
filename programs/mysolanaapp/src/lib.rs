@@ -1,24 +1,20 @@
 use anchor_lang::prelude::*;
 
-declare_id!("Fg6PaFpoGXkYsidMpWTK6W2BeZ7FEfcYkg476zPFsLnS");
+declare_id!("Pkje2SJRri9eRo9tGoU1FV6MJPFBsVmnfEy7HpGrRCd");
 
 #[program]
 pub mod mysolanaapp {
-    use std::task::Context;
-
-    use anchor_lang::solana_program::entrypoint::ProgramResult;
-
     use super::*;
-    pub fn send_tweet(ctx: Context<SendTweet>, topic: String, content: String) -> ProgramResult {
+    pub fn send_tweet(ctx: Context<SendTweet>, topic: String, content: String) -> Result<()> {
         let tweet: &mut Account<Tweet> = &mut ctx.accounts.tweet;
         let author: &Signer = &ctx.accounts.author;
         let clock: Clock = Clock::get().unwrap();
 
         if topic.chars().count() > 50 {
-            return Err(ErrorCode::TopicTooLong.into())
+            return Err(ErrorCode::TopicTooLong.into());
         }
         if content.chars().count() > 280 {
-            return Err(ErrorCode::ContentTooLong.into())
+            return Err(ErrorCode::ContentTooLong.into());
         }
         tweet.author = *author.key;
         tweet.timestamp = clock.unix_timestamp;
