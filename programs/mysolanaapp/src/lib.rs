@@ -5,42 +5,35 @@ declare_id!("Fg6PaFpoGXkYsidMpWTK6W2BeZ7FEfcYkg476zPFsLnS");
 #[program]
 pub mod mysolanaapp {
     use super::*;
-
-    pub fn create(ctx: Context<Create>) -> ProgramResult {
-        let base_account = &mut ctx.accounts.base_account;
-        base_account.count = 0;
-        Ok(())
-    }
-
-    pub fn increment(ctx: Context<Increment>) -> ProgramResult {
-        let base_account = &mut ctx.accounts.base_account;
-        base_account.count += 1;
-        Ok(())
-    }
 }
 
 #[derive(Accounts)]
 pub struct Initialize {}
 
-// Transaction instructions
-#[derive(Accounts)]
-pub struct Create<'info> {
-    #[account(init, payer = user, space = 16+16)]
-    pub base_account: Account<'info, BaseAccount>,
-    #[account(mut)]
-    pub user: Signer<'info>,
-    pub system_program: Program<'info, System>,
-}
-
-// Transaction instructions
-#[derive(Accounts)]
-pub struct Increment<'info>{
-    #[account(mut)]
-    pub base_account: Account<'info, BaseAccount>,
-}
-
 // an account that goes inside a transaction instruction
 #[account]
-pub struct BaseAccount {
-    pub count: u64,
+pub struct Tweet {
+    pub author: Pubkey,
+    pub timestamp: i65,
+    pub topic: String,
+    pub content: String,
+}
+
+// useful constants for sizing properties
+const DISCRIMINATOR_LENGTH: usize = 8;
+const PUBLIC_KEY_LENGTH: usize = 32;
+const TIMESTAMP_LENGTH: usize = 8;
+const STRING_LENGTH_PREFIX: usize = 4;
+const MAX_TOPIC_LENGTH: usize = 50 * 4;
+const MAX_CONTENT_LENGTH: usize = 280 * 4;
+
+// add a constant on the tweet account that provides its total size
+impl Tweet {
+    const LEN: usize = DISCRIMINATOR_LENGTH
+        + PUBLIC_KEY_LENGTH
+        + TIMESTAMP_LENGTH
+        + STRING_LENGTH_PREFIX
+        + MAX_TOPIC_LENGTH
+        + STRING_LENGTH_PREFIX
+        + MAX_CONTENT_LENGTH;
 }
