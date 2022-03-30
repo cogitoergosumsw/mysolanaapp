@@ -4,13 +4,21 @@ seeds = false
 [programs.localnet]
 mysolanaapp = "Pkje2SJRri9eRo9tGoU1FV6MJPFBsVmnfEy7HpGrRCd"
 
+[programs.devnet]
+mysolanaapp = "Pkje2SJRri9eRo9tGoU1FV6MJPFBsVmnfEy7HpGrRCd"
+
 [registry]
 url = "https://anchor.projectserum.com"
 
 [provider]
+# cluster = "devnet"
 cluster = "localnet"
-wallet = "/home/sengwee/.config/solana/id.json" # on Linux
-# wallet = "/Users/sengwee/.config/solana/id.json" # on MacOS
+wallet = "/home/test/.config/solana/id.json" # on Linux
+# wallet = "/Users/test/.config/solana/id.json" # on MacOS
 
 [scripts]
 test = "yarn run mocha -t 1000000 tests/"
+copy-idl = "mkdir -p app/src/idl && cp target/idl/mysolanaapp.json app/src/idl/mysolanaapp.json"
+
+[workspace]
+types = "app/src/idl/"
