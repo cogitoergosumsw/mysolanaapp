@@ -20,4 +20,4 @@ anchor-lang = "0.23.0"
 
 [provider]
 cluster = "localnet"
-wallet = "/Users/sengwee/.config/solana/id.json"
+wallet = "/Users/test/.config/solana/id.json"
