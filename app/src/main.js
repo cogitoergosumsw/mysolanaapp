@@ -1,3 +1,4 @@
+import 'solana-wallets-vue/styles.css'
 // CSS.
 import './main.css'
 

@@ -9,7 +9,8 @@ url = "https://anchor.projectserum.com"
 
 [provider]
 cluster = "localnet"
-wallet = "/home/sengwee/.config/solana/id.json"
+wallet = "/home/sengwee/.config/solana/id.json" # on Linux
+# wallet = "/Users/sengwee/.config/solana/id.json" # on MacOS
 
 [scripts]
 test = "yarn run mocha -t 1000000 tests/"
